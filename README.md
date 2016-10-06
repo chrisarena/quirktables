@@ -1,2 +1,1 @@
-# chrisarena.mwo.io
-Mechwarrior Quirks
+# QuirkTables for MechWarrior Online
