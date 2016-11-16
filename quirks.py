@@ -46,7 +46,7 @@ class Quirk(object):
     def __init__(self, quirk_json):
         self.name = quirk_json['translated_name']
         self.value = quirk_json['value']
-        non_percent_quirks = ['ADDITIONAL', 'BONUS', 'HARDPOINT', 'ANGLE', 'JUMP', 'NARC', 'SENSOR']
+        non_percent_quirks = ('ADDITIONAL', 'BONUS', 'HARDPOINT', 'ANGLE', 'JUMP', 'NARC', 'SENSOR')
         if not any(item in self.name for item in non_percent_quirks):
             self.value = str(int(float(self.value) * 100)) + '%'
 
@@ -145,6 +145,7 @@ class Mech(object):
                 elif isinstance(cell, str):
                     text = cell
                 else:
+                    print(cell)
                     raise Exception('Type of cell is %s' % type(cell))
                 new_row.append(text)
             string_matrix.append(new_row)
@@ -186,7 +187,7 @@ class Omnimech(Mech):
     def __init__(self, mech_tuple):
         self.name, pod_dict = mech_tuple[0].upper(), mech_tuple[1]
         self.omnipods = [Omnipod(pod) for pod in pod_dict.values()]
-        self.variants = set(omnipod.variant.upper() for omnipod in self.omnipods)
+        self.variants = set(omnipod.variant for omnipod in self.omnipods)
         self.matrix = self._build_matrix()
 
     def _find_pod(self, variant, component):
